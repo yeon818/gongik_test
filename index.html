@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>나는 몇 % 공익러일까?</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    .question { margin-bottom: 20px; }
+    .question h3 { margin-bottom: 10px; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>나는 몇 % 공익러일까?</h1>
+  <div id="quiz"></div>
+  <button onclick="showResult()">결과 보기</button>
+
+  <script>
+    const quiz = [
+      { question: "길거리에서 노숙인을 본다면?", answers: [{ text: "먹을 걸 나눠준다", score: 3 }, { text: "마음을 쓴다", score: 2 }, { text: "지나간다", score: 1 }] },
+      { question: "친구가 캠페인을 한다면?", answers: [{ text: "참여도 하고 공유도 한다", score: 3 }, { text: "좋아요만 누른다", score: 2 }, { text: "무시한다", score: 1 }] },
+      { question: "플라스틱 빨대를 줄이는 운동을 보면?", answers: [{ text: "나도 바로 바꾼다", score: 3 }, { text: "고민은 해본다", score: 2 }, { text: "모른 척", score: 1 }] },
+      { question: "기부 안내 전화를 받으면?", answers: [{ text: "기부를 한다", score: 3 }, { text: "한 번 들어본다", score: 2 }, { text: "끊는다", score: 1 }] },
+      { question: "환경 다큐를 봤다면?", answers: [{ text: "SNS에 공유한다", score: 3 }, { text: "혼자만 안다", score: 2 }, { text: "잊는다", score: 1 }] },
+      { question: "공익단체 행사에 초대받으면?", answers: [{ text: "직접 참여한다", score: 3 }, { text: "온라인으로만 본다", score: 2 }, { text: "안 간다", score: 1 }] },
+      { question: "청소년 문제 기사에 분노한다면?", answers: [{ text: "청원하거나 글을 쓴다", score: 3 }, { text: "댓글만 쓴다", score: 2 }, { text: "넘긴다", score: 1 }] },
+      { question: "캠페인 부스 앞을 지나칠 때?", answers: [{ text: "대화도 나눈다", score: 3 }, { text: "눈으로만 본다", score: 2 }, { text: "피한다", score: 1 }] },
+      { question: "공공장소에서 쓰레기를 보면?", answers: [{ text: "줍는다", score: 3 }, { text: "눈치만 본다", score: 2 }, { text: "무시한다", score: 1 }] },
+      { question: "봉사활동을 제안받는다면?", answers: [{ text: "하고 싶다", score: 3 }, { text: "시간 나면", score: 2 }, { text: "바빠서 못 해", score: 1 }] },
+      { question: "지구온난화 뉴스가 나왔을 때?", answers: [{ text: "바로 행동 다짐", score: 3 }, { text: "에구", score: 2 }, { text: "끄덕", score: 1 }] },
+      { question: "기후위기 팻말 시위를 본다면?", answers: [{ text: "나도 하고 싶다", score: 3 }, { text: "구경만 한다", score: 2 }, { text: "불편해 보인다", score: 1 }] },
+    ];
+
+    let totalScore = 0;
+    let current = 0;
+    const quizContainer = document.getElementById("quiz");
+
+    function renderQuestion() {
+      if (current >= quiz.length) {
+        document.getElementById("quiz").innerHTML = "<p>모든 질문을 완료했어요!</p>";
+        return;
+      }
+      const q = quiz[current];
+      let html = `<div class="question"><h3>Q${current + 1}. ${q.question}</h3>`;
+      q.answers.forEach(a => {
+        html += `<button onclick="answer(${a.score})">${a.text}</button>`;
+      });
+      html += "</div>";
+      quizContainer.innerHTML = html;
+    }
+
+    function answer(score) {
+      totalScore += score;
+      current++;
+      renderQuestion();
+    }
+
+    function showResult() {
+      if (totalScore >= 33) location.href = "result-core.html";
+      else if (totalScore >= 25) location.href = "result-action.html";
+      else if (totalScore >= 17) location.href = "result-interest.html";
+      else location.href = "result-seed.html";
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
