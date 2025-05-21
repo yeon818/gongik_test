@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>나는 몇 % 공익러일까?</title>
+  <title>나의 공익활동 지수는?</title>
   <style>
     body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
     .question { margin-bottom: 20px; }
@@ -18,18 +18,18 @@
 
   <script>
     const quiz = [
-      { question: "길거리에서 노숙인을 본다면?", answers: [{ text: "먹을 걸 나눠준다", score: 3 }, { text: "마음을 쓴다", score: 2 }, { text: "지나간다", score: 1 }] },
-      { question: "친구가 캠페인을 한다면?", answers: [{ text: "참여도 하고 공유도 한다", score: 3 }, { text: "좋아요만 누른다", score: 2 }, { text: "무시한다", score: 1 }] },
-      { question: "플라스틱 빨대를 줄이는 운동을 보면?", answers: [{ text: "나도 바로 바꾼다", score: 3 }, { text: "고민은 해본다", score: 2 }, { text: "모른 척", score: 1 }] },
-      { question: "기부 안내 전화를 받으면?", answers: [{ text: "기부를 한다", score: 3 }, { text: "한 번 들어본다", score: 2 }, { text: "끊는다", score: 1 }] },
-      { question: "환경 다큐를 봤다면?", answers: [{ text: "SNS에 공유한다", score: 3 }, { text: "혼자만 안다", score: 2 }, { text: "잊는다", score: 1 }] },
-      { question: "공익단체 행사에 초대받으면?", answers: [{ text: "직접 참여한다", score: 3 }, { text: "온라인으로만 본다", score: 2 }, { text: "안 간다", score: 1 }] },
-      { question: "청소년 문제 기사에 분노한다면?", answers: [{ text: "청원하거나 글을 쓴다", score: 3 }, { text: "댓글만 쓴다", score: 2 }, { text: "넘긴다", score: 1 }] },
-      { question: "캠페인 부스 앞을 지나칠 때?", answers: [{ text: "대화도 나눈다", score: 3 }, { text: "눈으로만 본다", score: 2 }, { text: "피한다", score: 1 }] },
-      { question: "공공장소에서 쓰레기를 보면?", answers: [{ text: "줍는다", score: 3 }, { text: "눈치만 본다", score: 2 }, { text: "무시한다", score: 1 }] },
-      { question: "봉사활동을 제안받는다면?", answers: [{ text: "하고 싶다", score: 3 }, { text: "시간 나면", score: 2 }, { text: "바빠서 못 해", score: 1 }] },
-      { question: "지구온난화 뉴스가 나왔을 때?", answers: [{ text: "바로 행동 다짐", score: 3 }, { text: "에구", score: 2 }, { text: "끄덕", score: 1 }] },
-      { question: "기후위기 팻말 시위를 본다면?", answers: [{ text: "나도 하고 싶다", score: 3 }, { text: "구경만 한다", score: 2 }, { text: "불편해 보인다", score: 1 }] },
+      { question: "거리에서 집회하는 시민들을 보았을 때 나는?", answers: [{ text: "어떤 집회인지 확인 후 함께 참여한다", score: 4 }, { text: "관심을 갖고 본다", score: 3 }, { text: "스쳐 지나간다", score: 2 }, { text: "불편하게 느낀다", score: 1 }] },
+      { question: "어린이 보호구역에서 빠른 속도의 차량을 본 나는?", answers: [{ text: "경찰이나 민원 앱에 바로 제보한다", score: 4 }, { text: "근처 어른들에게 알리고 조심시킨다", score: 3 }, { text: "위험하지만 별 일 없겠지 하고 지나간다", score: 2 }, { text: "상관 안한다", score: 1 }] },
+      { question: "평소 공익 이슈를 접하는 나의 태도는?", answers: [{ text: "뉴스, 칼럼, 소셜미디어로 꾸준히 본다", score: 4 }, { text: "내가 관심있는 이슈만 챙긴다", score: 3 }, { text: "누가 이야기 해주면 그 때 본다", score: 2 },{ text: "전혀 관심이 없다", score: 1 }] },
+      { question: "지역 소식지를 받았을 때 나는?", answers: [{ text: "주변에도 소식지를 공유한다", score: 4 }, { text: "관심 있는 내용만 저장한다", score: 3 }, { text: "한 번 훑어나 본다", score: 2 }, { text: "보지도 않고 버린다", score: 1 }] },
+      { question: "마트에서 비닐봉투를 권유받았을 때 나는?", answers: [{ text: "가방에 있던 에코백을 꺼낸다", score: 4 }, { text: "혹시 종이봉투는 없냐고 물어본다", score: 3 }, { text: "앞으로 장바구니는 필수!라고 다짐한다", score: 2 },{ text: "아무 생각없이 받는다", score: 1 }] },
+      { question: "재난 상황 속 지역 이웃을 돕는 나는?", answers: [{ text: "지자체 연대 활동에 직접 참여한다", score: 4 }, { text: "기부나 물품이라도 보내야겠다", score: 3 }, { text: "자원봉사를 알아본다", score: 2 },{ text: "나도 바빠서 어렵다", score: 1 }] },
+      { question: "친구가 나눔 캠페인을 기획한다면 나는?", answers: [{ text: "기획부터 홍보까지 함께하고 싶다, score: 4 }, { text: "기부나 물품 후원정도는 가능하다", score: 3 }, { text: "응원은 하지만 참여는 어렵다", score: 2 }, { text: "그런걸 왜하는지 모르겠다", score: 1 }] },
+      { question: "가짜뉴스나 혐오 표현이 도는 걸 봤을 때 나는?", answers: [{ text: "바로 팩트체크 자료를 공유한다", score: 4 }, { text: "출처를 확인해보고 사람들에게 알림", score: 3 }, { text: "마음만 불편하다", score: 2 }, { text: "내 일이 아니다", score: 1 }] },
+      { question: "친환경 제품이 일반 제품보다 비싸면 나는?", answers: [{ text: "조금 더 내고 친환경 제품으로 구매한다", score: 4 }, { text: "자주 쓰는 것만 친환경 제품으로 구매한다", score: 3 }, { text: "고민되지만 일반 제품을 선택한다", score: 2 }, { text: "저렴한게 최고지", score: 1 }] },
+      { question: "길에서 어려운 상황의 노숙인을 만났을 때 나는?", answers: [{ text: "무조건 도울 방법을 찾는다", score: 4 }, { text: "도와줄 수 있는 기관을 검색해본다", score: 3 }, { text: "마음은 아프지만 그냥 지나간다", score: 2 }, { text: "일부러 시선을 피한다", score: 1 }] },
+      { question: "친구가 인종차별적 발언을 했을 때 나는?", answers: [{ text: "왜 그런 말이 문제인이 자세히 설명해준다", score: 4 }, { text: "조심스럽게 문제를 짚는다", score: 3 }, { text: "마음이 불편하지만 말은 못한다", score: 2 }, { text: "분위기를 깨기 싫어 그냥 넘긴다", score: 1 }] },
+      { question: "내가 생각하는 공익활동이란?", answers: [{ text: "나와 사회를 잇는 당연한 삶의 일부", score: 4 }, { text: "누군가는 꼭 해야할 중요한 일", score: 3 }, { text: "잘은 모르지만 좋다는 건 안다", score: 2 }, { text: "나와는 관련 없는 일이다", score: 1 }] },
     ];
 
     let totalScore = 0;
