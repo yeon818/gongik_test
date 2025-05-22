@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>나의 공익활동 지수는?</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background: #f2f2f2; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    h1 { text-align: center; }
+    .question { margin-bottom: 20px; }
+    button { display: block; width: 100%; margin-top: 10px; padding: 10px; font-size: 16px; }
+    #result { display: none; padding: 20px; background: #dff0d8; border-radius: 10px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>나의 공익활동 지수는?</h1>
+    <div id="quiz"></div>
+    <button onclick="showResult()" id="resultBtn" style="display:none;">결과 보기</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      ["거리에서 집회하는 시민들을 보았을 때 나는?", ["어떤 집회인지 확인 후 함께 참여한다", "관심을 갖고 본다", "스쳐 지나간다", "불편하게 느낀다"]],
+      ["어린이 보호구역에서 빠른 속도의 차량을 본 나는?", ["경찰이나 민원 앱에 바로 제보한다", "근처 어른들에게 알리고 조심시킨다", "위험하지만 별 일 없겠지 하고 지나간다", "상관 안한다"]],
+      ["평소 공익 이슈를 접하는 나의 태도는?", ["뉴스, 칼럼, 소셜미디어로 꾸준히 본다", "내가 관심있는 이슈만 챙긴다", "누가 이야기 해주면 그 때 본다", "전혀 관심이 없다"]],
+      ["지역 소식지를 받았을 때 나는?", ["주변에도 소식지를 공유한다", "관심 있는 내용만 저장한다", "한 번 훑어나 본다", "보지도 않고 버린다"]],
+      ["마트에서 비닐봉투를 권유받았을 때 나는?", ["가방에 있던 에코백을 꺼낸다", "혹시 종이봉투는 없냐고 물어본다", "앞으로 장바구니는 필수!라고 다짐한다", "아무 생각없이 받는다"]],
+      ["재난 상황 속 지역 이웃을 돕는 나는?", ["지자체 연대 활동에 직접 참여한다", "기부나 물품이라도 보내야겠다", "자원봉사를 알아본다", "나도 바빠서 어렵다"]],
+      ["친구가 나눔 캠페인을 기획한다면 나는?", ["기획부터 홍보까지 함께하고 싶다", "기부나 물품 후원정도는 가능하다", "응원은 하지만 참여는 어렵다", "그런걸 왜하는지 모르겠다"]],
+      ["가짜뉴스나 혐오 표현이 도는 걸 봤을 때 나는?", ["바로 팩트체크 자료를 공유한다", "출처를 확인해보고 사람들에게 알림", "마음만 불편하다", "내 일이 아니다"]],
+      ["친구가 인종차별적 발언을 했을 때 나는?", ["왜 그런 말이 문제인지 자세히 설명해준다", "조심스럽게 문제를 짚는다", "마음이 불편하지만 말은 못한다", "분위기를 깨기 싫어 그냥 넘긴다"]],
+      ["내가 생각하는 공익활동이란?", ["나와 사회를 잇는 당연한 삶의 일부", "누군가는 꼭 해야할 중요한 일", "잘은 모르지만 좋다는 건 안다", "나와는 관련 없는 일이다"]],
+    ];
+
+    let score = 0;
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = "";
+
+      if (currentQuestion >= questions.length) {
+        document.getElementById("resultBtn").style.display = "block";
+        return;
+      }
+
+      const q = document.createElement("div");
+      q.className = "question";
+      q.innerHTML = "<h3>Q" + (currentQuestion + 1) + ". " + questions[currentQuestion][0] + "</h3>";
+
+      questions[currentQuestion][1].forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.onclick = () => {
+          score += (4 - index);  // 0 → 4점, 1 → 3점, ...
+          currentQuestion++;
+          loadQuestion();
+        };
+        q.appendChild(btn);
+      });
+
+      quizDiv.appendChild(q);
+    }
+
+    function showResult() {
+      const resultDiv = document.getElementById("result");
+      let resultText = "";
+
+      if (score >= 36) {
+        resultText = "<h3>공익 마스터형!</h3><p>공익 DNA를 타고난 당신! 문제의식과 실천력이 조화를 이루는 진정한 공익활동가입니다. 이미 다양한 활동을 하고 있거나 리더 역할도 가능합니다.</p>";
+      } else if (score >= 28) {
+        resultText = "<h3>공익 서포터형!</h3><p>공익에 대한 관심과 행동력이 균형 잡힌 시민형! 때로는 참여자, 때로는 기획자로 움직이는 안정적인 서포터입니다.</p>";
+      } else if (score >= 22) {
+        resultText = "<h3>공익 새싹형!</h3><p>공익활동에 대한 관심은 있지만 실천에 조금 더 용기가 필요한 단계에요. 가볍게 참여하는 것부터 시작해보세요!</p>";
+      } else {
+        resultText = "<h3>공익 씨앗형!</h3><p>공익활동은 아직 낯설지만 씨앗은 이미 심어졌습니다. 작은 실천부터 함께 시작해볼까요?</p>";
+      }
+
+      resultDiv.innerHTML = resultText;
+      resultDiv.style.display = "block";
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("resultBtn").style.display = "none";
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
